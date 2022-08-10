@@ -15,7 +15,7 @@ class Article {
 
   factory Article.fromMap(Map<String, dynamic> map) {
     return Article(
-        Source.fromMap(map),
+        Source.fromMap(map['source']),
         map['author'],
         map['title'],
         map['description'],
