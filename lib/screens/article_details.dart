@@ -21,8 +21,11 @@ class _ArticleDetailsWebViewState extends State<ArticleDetailsWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: widget.url,
+    return Scaffold(
+      appBar: AppBar(),
+      body: WebView(
+        initialUrl: widget.url,
+      ),
     );
   }
 }
