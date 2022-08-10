@@ -42,7 +42,7 @@ class _ArticlesScreenState extends State<ArticleScreen> {
   }
 
   buildArticle(Article article) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => article.url != null
           ? Navigator.push(
               context,
@@ -76,10 +76,10 @@ class _ArticlesScreenState extends State<ArticleScreen> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 14.0),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
                         'By ' + (article.author ?? 'Anonymous'),
                         maxLines: 1,
@@ -89,20 +89,22 @@ class _ArticlesScreenState extends State<ArticleScreen> {
                       ),
                     ),
                   ),
-                  Expanded(
-                      child: Row(
-                    children: [
-                      Text(
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
                         article.source.name,
+                        textAlign: TextAlign.left,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
                             fontSize: 13.0),
-                      )
-                    ],
-                  ))
+                      ),
+                    ),
+                  )
                 ],
               ),
             )),
@@ -139,11 +141,14 @@ class _ArticlesScreenState extends State<ArticleScreen> {
   }
 
   bottomLoader() {
-    return const Center(
-      child: SizedBox(
-        height: 24,
-        width: 24,
-        child: CircularProgressIndicator(strokeWidth: 1.5),
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 10.0),
+      child: Center(
+        child: SizedBox(
+          height: 30,
+          width: 30,
+          child: CircularProgressIndicator(strokeWidth: 1.5),
+        ),
       ),
     );
   }

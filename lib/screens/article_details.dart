@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:news_app_flutter/utils/application_toolbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleDetailsWebView extends StatefulWidget {
@@ -22,7 +23,7 @@ class _ArticleDetailsWebViewState extends State<ArticleDetailsWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const ApplicationToolbar(),
       body: WebView(
         initialUrl: widget.url,
       ),

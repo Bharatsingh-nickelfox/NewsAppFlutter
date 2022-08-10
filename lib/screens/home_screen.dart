@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildCategory({required int index}) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         _setSelectedIndex(index);
       },
@@ -44,17 +44,21 @@ class _HomeScreenState extends State<HomeScreen> {
             color: _selectedIndex == index
                 ? const Color(0xff000000)
                 : const Color(0xffd1cfcf)),
-        child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 15.0),
-            child: Text(
-              categories[index],
-              maxLines: 1,
-              style: TextStyle(
-                  color: _selectedIndex == index
-                      ? const Color(0xffffffff)
-                      : const Color(0xff949191)),
-            )),
+        child: Align(
+          alignment: Alignment.center,
+          child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 15.0),
+              child: Text(
+                categories[index],
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: _selectedIndex == index
+                        ? const Color(0xffffffff)
+                        : const Color(0xff949191)),
+              )),
+        ),
       ),
     );
   }
