@@ -15,7 +15,7 @@ class ArticleScreen extends StatefulWidget {
 }
 
 class _ArticlesScreenState extends State<ArticleScreen> {
-  bool _isLoading = false;
+  bool loading = false;
 
   final _scrollController = ScrollController();
 
@@ -26,7 +26,8 @@ class _ArticlesScreenState extends State<ArticleScreen> {
   }
 
   void _onScroll() {
-    if (_isBottom) {
+    if (_isBottom && !loading) {
+      loading = true;
       context.read<NewsCubit>().getNewsArticles(widget.category, false);
     }
   }
@@ -95,6 +96,7 @@ class _ArticlesScreenState extends State<ArticleScreen> {
 
   createArticleList(
       CommonResponse<Article> commonResponse, bool _hasReachedMax) {
+    loading = false;
     final articles = commonResponse.data;
     return ListView.builder(
       itemCount: _hasReachedMax ? articles.length : articles.length + 1,
@@ -108,6 +110,7 @@ class _ArticlesScreenState extends State<ArticleScreen> {
   }
 
   showEmptyState(bool apiCalledAtLeastOnce, NewsCubit newsCubit) {
+    loading = false;
     if (!apiCalledAtLeastOnce) {
       newsCubit.getNewsArticles(widget.category, true);
     }
@@ -128,10 +131,12 @@ class _ArticlesScreenState extends State<ArticleScreen> {
   }
 
   getLoadingWidget() {
+    loading = false;
     return const Center(child: CircularProgressIndicator());
   }
 
   getErrorWidget(message) {
+    loading = false;
     return Center(child: Text(message));
   }
 
@@ -140,6 +145,9 @@ class _ArticlesScreenState extends State<ArticleScreen> {
     NewsCubit newsCubit = context.watch<NewsCubit>();
 
     return BlocBuilder<NewsCubit, NewsState>(builder: (context, state) {
+      if(state is PaginationLoading){
+        loading = true;
+      }
       return newsCubit.state is Loading
           ? getLoadingWidget()
           : newsCubit.state is ErrorState
